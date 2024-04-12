@@ -30,6 +30,7 @@
 
   run.$inject = [
     'designatedashboard.resources.os-designate-zone.resourceType',
+    'designatedashboard.resources.os-designate-zone.resourceType2',
     'designatedashboard.resources.os-designate-zone.api',
     'designatedashboard.resources.os-designate-zone.basePath',
     'horizon.framework.conf.resource-type-registry.service'
@@ -37,6 +38,7 @@
 
   function run(
     zoneResourceType,
+    zoneResourceType2,
     zoneApi,
     basePath,
     registry
@@ -56,6 +58,10 @@
     function loadFunction(identifier) {
       return zoneApi.get(identifier);
     }
+
+    var resourceType2 = registry.getResourceType(zoneResourceType2);
+    resourceType2
+      .setSummaryTemplateUrl(basePath + 'details/drawer2.html');
   }
 
 })();
