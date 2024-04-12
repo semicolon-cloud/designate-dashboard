@@ -41,7 +41,9 @@
       list: list,
       deleteZone: deleteZone,
       create: create,
-      update: update
+      update: update,
+      request_creation: request_creation,
+      request_list: request_list
     };
 
     return service;
