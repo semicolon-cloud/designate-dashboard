@@ -157,7 +157,7 @@ class DNSRequest(generic.View):
                     raise error
             raise
 
-        return response
+        return response.json()
     @rest_utils.ajax()
     def post(self, request):
         data = dict(request.DATA) if request.DATA else {}
@@ -192,4 +192,4 @@ class DNSRequest(generic.View):
                     raise error
             raise
 
-        return response
+        return response.json()

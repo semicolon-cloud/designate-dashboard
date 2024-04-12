@@ -301,7 +301,7 @@
     function listRequests() {
       return zoneApi.request_list().then(function onList(response) {
         // listFunctions are expected to return data in "items"
-        response.data.items = response.data.zones;
+        response.data.items = response.data.active_quota_tasks;
 
 //        util.addTimestampIds(response.data.items, 'id', 'updated_at');
 
