@@ -77,7 +77,6 @@
         form: [
           {
             key: "domain_name",
-            readonly: readonly,
             title: gettext("Name"),
             description: gettext("Zone name ending in '.'"),
             validationMessage: gettext("Zone must end with '.'"),
