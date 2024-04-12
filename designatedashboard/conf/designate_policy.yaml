@@ -916,3 +916,5 @@
 # (role:member and project_id:%(project_id)s)".
 # The zone transfer request API now supports system scope and default
 # roles.
+
+"notuseful": "role:admin"
