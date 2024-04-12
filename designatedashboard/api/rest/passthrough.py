@@ -134,8 +134,8 @@ class DNSRequest(generic.View):
         if getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False):
             verify = False
 
-        service_url = _get_service_url(request, 'dns')
-        path = "v1/openstack/domain"
+        service_url = _get_service_url(request, 'registration')
+        path = "openstack/domain"
         request_url = '{}{}'.format(
             service_url,
             path if service_url.endswith('/') else ('/' + path)
@@ -167,8 +167,8 @@ class DNSRequest(generic.View):
         if getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False):
             verify = False
 
-        service_url = _get_service_url(request, 'dns')
-        path = "v1/openstack/domain"
+        service_url = _get_service_url(request, 'registration')
+        path = "openstack/domain"
         request_url = '{}{}'.format(
             service_url,
             path if service_url.endswith('/') else ('/' + path)
