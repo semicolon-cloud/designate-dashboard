@@ -32,6 +32,8 @@
     ])
     .constant(
       'designatedashboard.apiPassthroughUrl', '/api/dns/')
+    .constant(
+      'designatedashboard.apiPassthroughUrl2', '/api/dns_req/')
     .config(config)
     .run(run);
 

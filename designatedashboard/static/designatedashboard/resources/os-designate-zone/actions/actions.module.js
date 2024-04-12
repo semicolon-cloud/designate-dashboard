@@ -35,14 +35,16 @@
     'designatedashboard.resources.os-designate-zone.resourceType',
     'designatedashboard.resources.os-designate-zone.actions.create',
     'designatedashboard.resources.os-designate-zone.actions.delete',
-    'designatedashboard.resources.os-designate-zone.actions.update'
+    'designatedashboard.resources.os-designate-zone.actions.update',
+    'designatedashboard.resources.os-designate-zone.actions.request',
   ];
 
   function run(registry,
                resourceTypeString,
                createAction,
                deleteAction,
-               updateAction) {
+               updateAction,
+               requestAction) {
     var resourceType = registry.getResourceType(resourceTypeString);
     resourceType
       .globalActions
@@ -51,6 +53,12 @@
         service: createAction,
         template: {
           text: gettext('Create Zone')
+        }
+      }).append({
+        id: 'request',
+        service: requestAction,
+        template: {
+          text: gettext('Request Zone')
         }
       });
 

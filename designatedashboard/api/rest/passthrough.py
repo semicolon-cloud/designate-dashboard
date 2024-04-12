@@ -117,3 +117,79 @@ class Passthrough(generic.View):
     @rest_utils.ajax()
     def delete(self, request, path):
         return passthrough_delete(path, request).json()
+
+@urls.register
+class DNSRequest(generic.View):
+    """Pass-through API for executing service requests.
+
+       Horizon only adds auth and CORS proxying.
+    """
+    url_regex = r'dns_req/?$'
+
+    @rest_utils.ajax()
+    def get(self, request):
+
+        # Set verify if a CACERT is set and SSL_NO_VERIFY isn't True
+        verify = getattr(settings, 'OPENSTACK_SSL_CACERT', None)
+        if getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False):
+            verify = False
+
+        service_url = _get_service_url(request, 'dns')
+        path = "openstack/domain"
+        request_url = '{}{}'.format(
+            service_url,
+            path if service_url.endswith('/') else ('/' + path)
+        )
+
+        response = requests.get(
+            request_url,
+            headers={'X-Auth-Token': request.user.token.id},
+            verify=verify
+        )
+
+        try:
+            response.raise_for_status()
+        except HTTPError as e:
+            LOG.debug(e.response.content)
+            for error in rest_utils.http_errors:
+                if (e.response.status_code == getattr(error, 'status_code', 0) and
+                        exceptions.HorizonException in error.__bases__):
+                    raise error
+            raise
+
+        return response
+    @rest_utils.ajax()
+    def post(self, request):
+        data = dict(request.DATA) if request.DATA else {}
+
+        # Set verify if a CACERT is set and SSL_NO_VERIFY isn't True
+        verify = getattr(settings, 'OPENSTACK_SSL_CACERT', None)
+        if getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False):
+            verify = False
+
+        service_url = _get_service_url(request, 'dns')
+        path = "openstack/domain"
+        request_url = '{}{}'.format(
+            service_url,
+            path if service_url.endswith('/') else ('/' + path)
+        )
+
+        response = requests.post(
+            request_url,
+            headers={'X-Auth-Token': request.user.token.id},
+            json=data,
+            verify=verify,
+            params=data
+        )
+
+        try:
+            response.raise_for_status()
+        except HTTPError as e:
+            LOG.debug(e.response.content)
+            for error in rest_utils.http_errors:
+                if (e.response.status_code == getattr(error, 'status_code', 0) and
+                        exceptions.HorizonException in error.__bases__):
+                    raise error
+            raise
+
+        return response

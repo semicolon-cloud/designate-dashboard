@@ -34,7 +34,8 @@
   function service() {
     var service = {
       getCreateFormConfig: getCreateFormConfig,
-      getUpdateFormConfig: getUpdateFormConfig
+      getUpdateFormConfig: getUpdateFormConfig,
+      getRequestFormConfig: getRequestFormConfig
     };
 
     return service;
@@ -55,6 +56,48 @@
      */
     function getUpdateFormConfig() {
       return getCreateUpdateFormConfig(true);
+    }
+
+    function getRequestFormConfig() {
+      return {
+        schema: {
+          type: "object",
+          properties: {
+            domain_name: {
+              type: "string",
+              pattern: /^.+\.$/
+            },
+            email: {
+              type: "string",
+              format: "email",
+              pattern: /^[^@]+@[^@]+$/
+            }
+          }
+        },
+        form: [
+          {
+            key: "domain_name",
+            readonly: readonly,
+            title: gettext("Name"),
+            description: gettext("Zone name ending in '.'"),
+            validationMessage: gettext("Zone must end with '.'"),
+            placeholder: "example.com.",
+            type: "text",
+            required: true
+          },
+          {
+            key: "email",
+            title: gettext("Email Address"),
+            description: gettext("Email address to contact the zone owner."),
+            validationMessage: gettext("Email address must contain a single '@' character"),
+            type: "text",
+            condition: "model.type == 'PRIMARY'",
+            required: true
+          }
+        ],
+        model: {
+        }
+      };
     }
 
     /*

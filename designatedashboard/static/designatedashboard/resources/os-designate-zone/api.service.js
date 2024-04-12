@@ -22,6 +22,7 @@
 
   apiService.$inject = [
     'designatedashboard.apiPassthroughUrl',
+    'designatedashboard.apiPassthroughUrl2',
     'horizon.framework.util.http.service',
     'horizon.framework.widgets.toast.service'
   ];
@@ -34,7 +35,7 @@
    * @description Provides direct access to Designate Zone APIs.
    * @returns {Object} The service
    */
-  function apiService(apiPassthroughUrl, httpService, toastService) {
+  function apiService(apiPassthroughUrl, apiPassthroughUrl2, httpService, toastService) {
     var service = {
       get: get,
       list: list,
@@ -122,6 +123,20 @@
         .catch(function() {
           toastService.add('error', gettext('Unable to create the zone.'));
         });
+    }
+
+    function request_creation(data) {
+        return httpService.post(apiPassthroughUrl2, data)
+            .catch(function() {
+              toastService.add('error', gettext('Unable to create the zone.'));
+            });
+    }
+
+    function request_list() {
+        return httpService.get(apiPassthroughUrl2)
+            .catch(function() {
+              toastService.add('error', gettext('Unable to create the zone.'));
+            });
     }
 
     /**
