@@ -135,7 +135,7 @@ class DNSRequest(generic.View):
             verify = False
 
         service_url = _get_service_url(request, 'dns')
-        path = "openstack/domain"
+        path = "v1/openstack/domain"
         request_url = '{}{}'.format(
             service_url,
             path if service_url.endswith('/') else ('/' + path)
@@ -168,7 +168,7 @@ class DNSRequest(generic.View):
             verify = False
 
         service_url = _get_service_url(request, 'dns')
-        path = "openstack/domain"
+        path = "v1/openstack/domain"
         request_url = '{}{}'.format(
             service_url,
             path if service_url.endswith('/') else ('/' + path)
