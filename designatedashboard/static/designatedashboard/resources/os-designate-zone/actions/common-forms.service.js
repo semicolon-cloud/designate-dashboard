@@ -90,7 +90,6 @@
             description: gettext("Email address to contact the zone owner."),
             validationMessage: gettext("Email address must contain a single '@' character"),
             type: "text",
-            condition: "model.type == 'PRIMARY'",
             required: true
           }
         ],
