@@ -53,7 +53,7 @@
     var createZonePolicy, dnsServiceEnabled;
     var title = gettext("Request Zone");
     var message = {
-      success: gettext('Zone %s was successfully requested.')
+      success: gettext('Zone %s was successfully requested to be created.')
     };
 
     var service = {

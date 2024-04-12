@@ -34,6 +34,9 @@
     .constant(
       'designatedashboard.resources.os-designate-zone.resourceType',
       'OS::Designate::Zone')
+    .constant(
+      'designatedashboard.resources.os-designate-zone.resourceType',
+      'OS::Designate::ZoneRequest')
     .config(config)
     .run(run);
 
@@ -50,6 +53,7 @@
     'horizon.framework.conf.resource-type-registry.service',
     'designatedashboard.resources.os-designate-zone.api',
     'designatedashboard.resources.os-designate-zone.resourceType',
+    'designatedashboard.resources.os-designate-zone.resourceType2',
     'designatedashboard.resources.util'
   ];
 
@@ -57,6 +61,7 @@
                registry,
                zoneApi,
                resourceTypeString,
+               resourceTypeString2,
                util) {
     var resourceType = registry.getResourceType(resourceTypeString);
     resourceType
@@ -198,6 +203,107 @@
         response.data.items = response.data.zones;
 
         util.addTimestampIds(response.data.items, 'id', 'updated_at');
+
+        return response;
+      });
+    }
+
+
+    var resourceType2 = registry.getResourceType(resourceTypeString2);
+    resourceType2
+      .setNames(gettext('DNS Zone Creation Request'), gettext('DNS Zone Creation Requests'))
+      .setDefaultIndexUrl('/project/dnszones/')
+      .setListFunction(listRequests)
+      .setProperty('task_created', {
+        label: gettext('Created At'),
+        filters: ['noValue']
+      })
+      .setProperty('domain', {
+        label: gettext('Zone Name'),
+        filters: ['noName']
+      })
+      .setProperty('id', {
+        label: gettext('ID')
+      })
+      .setProperty('request_user', {
+        label: gettext('Requester'),
+        filters: ['noValue']
+      })
+      .setProperty('valid', {
+        label: gettext('Valid'),
+        filters: ['noName']
+      })
+      .setProperty('status', {
+        label: gettext('Status'),
+        filters: ['lowercase', 'noName']
+      });
+
+    resourceType2
+      .tableColumns
+      .append({
+        id: 'id',
+        priority: 1,
+        sortDefault: true
+      })
+      .append({
+        id: 'domain',
+        priority: 2
+      })
+      .append({
+        id: 'request_user',
+        priority: 3
+      })
+      .append({
+        id: 'task_created',
+        priority: 4
+      })
+      .append({
+        id: 'valid',
+        priority: 5
+      })
+      .append({
+        id: 'status',
+        priority: 6
+      });
+
+    resourceType2
+      .filterFacets
+      .append({
+        label: gettext('Name'),
+        name: 'domain',
+        isServer: false,
+        singleton: true,
+        persistent: false
+      })
+      .append({
+        label: gettext('Requester'),
+        name: 'request_user',
+        isServer: false,
+        singleton: true,
+        persistent: false,
+        options: [
+          {label: gettext('Primary'), key: 'primary'},
+          {label: gettext('Secondary'), key: 'secondary'}
+        ]
+      })
+      .append({
+        label: gettext('Status'),
+        name: 'status',
+        isServer: false,
+        singleton: true,
+        persistent: false,
+        options: [
+          {label: gettext('Active'), key: 'active'},
+          {label: gettext('Pending'), key: 'pending'}
+        ]
+      });
+
+    function listRequests() {
+      return zoneApi.request_list().then(function onList(response) {
+        // listFunctions are expected to return data in "items"
+        response.data.items = response.data.zones;
+
+//        util.addTimestampIds(response.data.items, 'id', 'updated_at');
 
         return response;
       });
