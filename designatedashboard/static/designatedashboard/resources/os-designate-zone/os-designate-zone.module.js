@@ -236,29 +236,21 @@
     resourceType2
       .tableColumns
       .append({
-        id: 'id',
+        id: 'domain',
         priority: 1,
         sortDefault: true
       })
       .append({
-        id: 'domain',
+        id: 'request_user',
         priority: 2
       })
       .append({
-        id: 'request_user',
+        id: 'valid',
         priority: 3
       })
       .append({
-        id: 'task_created',
-        priority: 4
-      })
-      .append({
-        id: 'valid',
-        priority: 5
-      })
-      .append({
         id: 'status',
-        priority: 6
+        priority: 4
       });
 
     resourceType2
