@@ -35,7 +35,7 @@
       'designatedashboard.resources.os-designate-zone.resourceType',
       'OS::Designate::Zone')
     .constant(
-      'designatedashboard.resources.os-designate-zone.resourceType',
+      'designatedashboard.resources.os-designate-zone.resourceType2',
       'OS::Designate::ZoneRequest')
     .config(config)
     .run(run);
