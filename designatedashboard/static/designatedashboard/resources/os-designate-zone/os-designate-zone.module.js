@@ -280,22 +280,14 @@
         name: 'request_user',
         isServer: false,
         singleton: true,
-        persistent: false,
-        options: [
-          {label: gettext('Primary'), key: 'primary'},
-          {label: gettext('Secondary'), key: 'secondary'}
-        ]
+        persistent: false
       })
       .append({
         label: gettext('Status'),
         name: 'status',
         isServer: false,
         singleton: true,
-        persistent: false,
-        options: [
-          {label: gettext('Active'), key: 'active'},
-          {label: gettext('Pending'), key: 'pending'}
-        ]
+        persistent: false
       });
 
     function listRequests() {
@@ -303,7 +295,7 @@
         // listFunctions are expected to return data in "items"
         response.data.items = response.data.active_quota_tasks;
 
-//        util.addTimestampIds(response.data.items, 'id', 'updated_at');
+        util.addTimestampIds(response.data.items, 'id', 'task_created');
 
         return response;
       });
