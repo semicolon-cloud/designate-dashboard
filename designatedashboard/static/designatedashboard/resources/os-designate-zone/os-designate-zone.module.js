@@ -215,27 +215,22 @@
       .setDefaultIndexUrl('/project/dnszones/')
       .setListFunction(listRequests)
       .setProperty('task_created', {
-        label: gettext('Created At'),
-        filters: ['noValue']
+        label: gettext('Created At')
       })
       .setProperty('domain', {
-        label: gettext('Zone Name'),
-        filters: ['noName']
+        label: gettext('Zone Name')
       })
       .setProperty('id', {
         label: gettext('ID')
       })
       .setProperty('request_user', {
-        label: gettext('Requester'),
-        filters: ['noValue']
+        label: gettext('Requester')
       })
       .setProperty('valid', {
-        label: gettext('Valid'),
-        filters: ['noName']
+        label: gettext('Valid')
       })
       .setProperty('status', {
-        label: gettext('Status'),
-        filters: ['lowercase', 'noName']
+        label: gettext('Status')
       });
 
     resourceType2
@@ -269,7 +264,7 @@
     resourceType2
       .filterFacets
       .append({
-        label: gettext('Name'),
+        label: gettext('Zone Name'),
         name: 'domain',
         isServer: false,
         singleton: true,
