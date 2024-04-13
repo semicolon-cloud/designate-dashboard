@@ -246,11 +246,11 @@
       })
       .append({
         id: 'valid',
-        priority: 3
+        priority: 2
       })
       .append({
         id: 'status',
-        priority: 4
+        priority: 2
       });
 
     resourceType2
