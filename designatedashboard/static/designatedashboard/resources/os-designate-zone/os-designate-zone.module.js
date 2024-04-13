@@ -253,30 +253,6 @@
         priority: 2
       });
 
-    resourceType2
-      .filterFacets
-      .append({
-        label: gettext('Zone Name'),
-        name: 'domain',
-        isServer: false,
-        singleton: true,
-        persistent: false
-      })
-      .append({
-        label: gettext('Requester'),
-        name: 'request_user',
-        isServer: false,
-        singleton: true,
-        persistent: false
-      })
-      .append({
-        label: gettext('Status'),
-        name: 'status',
-        isServer: false,
-        singleton: true,
-        persistent: false
-      });
-
     function listRequests() {
       return zoneApi.request_list().then(function onList(response) {
         // listFunctions are expected to return data in "items"
