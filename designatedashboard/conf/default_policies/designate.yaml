@@ -307,9 +307,9 @@
   operations: []
   scope_types:
   - project
-- check_str: (role:member and project_id:%(project_id)s) and ('PRIMARY':%(zone_type)s)
-    or (role:admin) and ('PRIMARY':%(zone_type)s) or (role:admin) and ('SECONDARY':%(zone_type)s)
-    or ("True":%(zone_shared)s) and ('PRIMARY':%(zone_type)s)
+- check_str: ((role:member and project_id:%(project_id)s) and ('PRIMARY':%(zone_type)s))
+    or ((role:admin) and ('PRIMARY':%(zone_type)s)) or ((role:admin) and ('SECONDARY':%(zone_type)s))
+    or (("True":%(zone_shared)s) and ('PRIMARY':%(zone_type)s))
   deprecated_reason: null
   deprecated_rule:
     check_str: ('PRIMARY':%(zone_type)s AND (rule:admin_or_owner OR 'True':%(zone_shared)s))
@@ -371,9 +371,9 @@
     path: /v2/zones/{zone_id}/recordsets
   scope_types:
   - project
-- check_str: (role:member and project_id:%(project_id)s) and ('PRIMARY':%(zone_type)s)
-    or (role:admin) and ('PRIMARY':%(zone_type)s) or (role:admin) and ('SECONDARY':%(zone_type)s)
-    or role:member and (project_id:%(recordset_project_id)s) and ('PRIMARY':%(zone_type)s)
+- check_str: ((role:member and project_id:%(project_id)s) and ('PRIMARY':%(zone_type)s))
+    or ((role:admin) and ('PRIMARY':%(zone_type)s) or (role:admin) and ('SECONDARY':%(zone_type)s))
+    or (role:member and (project_id:%(recordset_project_id)s) and ('PRIMARY':%(zone_type)s))
   deprecated_reason: null
   deprecated_rule:
     check_str: rule:admin or ('PRIMARY':%(zone_type)s and (rule:owner or project_id:%(recordset_project_id)s))
